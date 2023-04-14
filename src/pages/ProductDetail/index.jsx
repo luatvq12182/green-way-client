@@ -1,6 +1,16 @@
 import React from "react";
+import { Link, useParams } from "react-router-dom";
+import usePost from "@/hooks/usePost";
+import { genSrcImg } from "@/utils";
 
 const ProductDetail = () => {
+    const { id } = useParams();
+    const { data: post } = usePost(id);
+
+    if (!post) {
+        return "Loading...";
+    }
+
     return (
         <div>
             <div
@@ -11,141 +21,47 @@ const ProductDetail = () => {
                     backgroundSize: "cover",
                     backgroundPosition: "center",
                 }}
-            ></div>
+            />
 
             <div className='container-fluid mx-auto pt-2'>
                 <div className='crumb-box flex h-10 items-center'>
                     <ul className='crumb'>
                         <li>
-                            <a href='https://biomassvina.com'>Home</a>
+                            <Link to='/'>Home</Link>
                         </li>
                         <li>
-                            <a href='https://biomassvina.com/products'>
-                                Products
-                            </a>
+                            <Link to='/products'>Products</Link>
                         </li>
                     </ul>
                 </div>
+
                 <div className='rounded p-3 mt-2  bg-white mb-5'>
                     <div className='right-content w-full'>
                         <div className='grid md:grid-cols-4 xs-s:grid-cols-1 mt-4'>
                             <div className='col-span-2'>
                                 <div className='md:pr-5 xs-s:pr-0'>
-                                    <div className='image-product-show slider-product-show owl-carousel owl-theme owl-has-dot bg-white relative rounded shadow owl-loaded owl-drag'>
-                                        <div className='owl-stage-outer'>
-                                            <div
-                                                className='owl-stage'
-                                                style={{
-                                                    transform:
-                                                        "translate3d(-1076px, 0px, 0px)",
-                                                    transition:
-                                                        "all 0s ease 0s",
-                                                    width: 2690,
-                                                }}
-                                            >
-                                                <div
-                                                    className='owl-item cloned'
-                                                    style={{ width: 538 }}
-                                                >
-                                                    <img
-                                                        data-id='lightbox-1'
-                                                        src='/uploads/products/fd7a26917e827d49ccd2bd52e2aa8cbf.jpeg'
-                                                        alt='Viên nén gỗ'
-                                                        className='img-product-responsive lightbox'
-                                                        data-href='/uploads/products/fd7a26917e827d49ccd2bd52e2aa8cbf.jpeg'
-                                                    />
-                                                </div>
-                                                <div
-                                                    className='owl-item cloned'
-                                                    style={{ width: 538 }}
-                                                >
-                                                    <img
-                                                        data-id='lightbox-1'
-                                                        src='/uploads/products/fd7a26917e827d49ccd2bd52e2aa8cbf.jpeg'
-                                                        alt='Viên nén gỗ'
-                                                        className='img-product-responsive lightbox'
-                                                        data-href='/uploads/products/fd7a26917e827d49ccd2bd52e2aa8cbf.jpeg'
-                                                    />
-                                                </div>
-                                                <div
-                                                    className='owl-item active'
-                                                    style={{ width: 538 }}
-                                                >
-                                                    <img
-                                                        data-id='lightbox-1'
-                                                        src='/uploads/products/fd7a26917e827d49ccd2bd52e2aa8cbf.jpeg'
-                                                        alt='Viên nén gỗ'
-                                                        className='img-product-responsive lightbox'
-                                                        data-href='/uploads/products/fd7a26917e827d49ccd2bd52e2aa8cbf.jpeg'
-                                                    />
-                                                </div>
-                                                <div
-                                                    className='owl-item cloned'
-                                                    style={{ width: 538 }}
-                                                >
-                                                    <img
-                                                        data-id='lightbox-1'
-                                                        src='/uploads/products/fd7a26917e827d49ccd2bd52e2aa8cbf.jpeg'
-                                                        alt='Viên nén gỗ'
-                                                        className='img-product-responsive lightbox'
-                                                        data-href='/uploads/products/fd7a26917e827d49ccd2bd52e2aa8cbf.jpeg'
-                                                    />
-                                                </div>
-                                                <div
-                                                    className='owl-item cloned'
-                                                    style={{ width: 538 }}
-                                                >
-                                                    <img
-                                                        data-id='lightbox-1'
-                                                        src='/uploads/products/fd7a26917e827d49ccd2bd52e2aa8cbf.jpeg'
-                                                        alt='Viên nén gỗ'
-                                                        className='img-product-responsive lightbox'
-                                                        data-href='/uploads/products/fd7a26917e827d49ccd2bd52e2aa8cbf.jpeg'
-                                                    />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className='owl-nav disabled'>
-                                            <button
-                                                type='button'
-                                                role='presentation'
-                                                className='owl-prev'
-                                            >
-                                                <span aria-label='Previous'>
-                                                    ‹
-                                                </span>
-                                            </button>
-                                            <button
-                                                type='button'
-                                                role='presentation'
-                                                className='owl-next'
-                                            >
-                                                <span aria-label='Next'>›</span>
-                                            </button>
-                                        </div>
-                                        <div className='owl-dots disabled'>
-                                            <button
-                                                role='button'
-                                                className='owl-dot active'
-                                            >
-                                                <span />
-                                            </button>
-                                        </div>
-                                    </div>
+                                    <img
+                                        style={{
+                                            width: "100%",
+                                            borderRadius: "12px",
+                                        }}
+                                        data-id='lightbox-1'
+                                        src={genSrcImg(post.data[0].thumbnail)}
+                                        alt='Viên nén gỗ'
+                                        className='img-product-responsive lightbox'
+                                        data-href='/uploads/products/fd7a26917e827d49ccd2bd52e2aa8cbf.jpeg'
+                                    />
                                 </div>
                             </div>
                             <div className='col-span-2 md:mt-0 xs-s:mt-5'>
-                                <h1 className='text-2xl'>Wood Pellet</h1>
+                                <h1 className='text-2xl'>
+                                    {post.data[0].title}
+                                </h1>
                                 <div className='my-3'>
                                     <span className='text-2xl text-red-600'></span>
                                 </div>
                                 <div className='my-3'>
-                                    Wood pellets are a type of biofuel produced
-                                    from natural materials such as sawdust, wood
-                                    chips, rice husks, corn stalks, etc. These
-                                    are all leftovers and are reused after use.
-                                    lumber, household appliances and other
-                                    agricultural products
+                                    {post.data[0].shortDescription}
                                 </div>
                                 <div className='mt-5 flex gap-4 items-center social'>
                                     <span>Share:</span>
@@ -221,97 +137,20 @@ const ProductDetail = () => {
                         </div>
                         <div className='mt-5 border-t pt-4'>
                             <h2 className='text-2xl'>Product information</h2>
-                            <div className='content-body'>
-                                <pre
-                                    id='tw-target-text'
-                                    className='tw-data-text tw-text-large tw-ta'
-                                    dir='ltr'
-                                    data-placeholder='Bản dịch'
-                                >
-                                    <span
-                                        className='Y2IQFc'
-                                        lang='en'
-                                        style={{
-                                            fontFamily:
-                                                "arial, helvetica, sans-serif",
-                                        }}
-                                    >
-                                        Wood pellets provided by Biomass Vina
-                                        meet ENplus standards quality,
-                                        specifically including the following 3
-                                        types:
-                                    </span>
-                                </pre>
-                                <ol>
-                                    <li>
-                                        <span
-                                            className='Y2IQFc'
-                                            lang='en'
-                                            style={{
-                                                fontFamily:
-                                                    "arial, helvetica, sans-serif",
-                                            }}
-                                        >
-                                            <strong>ENplus A1</strong>: the
-                                            highest quality wood pellets with
-                                            0.5% ash content and up to 8mm
-                                            diameter.
-                                        </span>
-                                    </li>
-                                    <li
-                                        id='tw-target-text'
-                                        className='tw-data-text tw-text-large tw-ta'
-                                        dir='ltr'
-                                        data-placeholder='Bản dịch'
-                                    >
-                                        <span
-                                            className='Y2IQFc'
-                                            lang='en'
-                                            style={{
-                                                fontFamily:
-                                                    "arial, helvetica, sans-serif",
-                                            }}
-                                        >
-                                            <strong>ENplus A2</strong>: wood
-                                            pellets with 1.5% ash content this
-                                            is the industry standard, also known
-                                            as industrial granules.
-                                        </span>
-                                    </li>
-                                    <li>
-                                        <span
-                                            className='Y2IQFc'
-                                            lang='en'
-                                            style={{
-                                                fontFamily:
-                                                    "arial, helvetica, sans-serif",
-                                            }}
-                                        >
-                                            <strong>ENplus B</strong>:&nbsp;wood
-                                            pellets with an ash content of 3% or
-                                            more, usually pellets of
-                                            agricultural products from shelling
-                                            waste as well as pellets from rice
-                                            straw.
-                                        </span>
-                                        <span
-                                            className='Y2IQFc'
-                                            lang='en'
-                                            style={{
-                                                fontFamily:
-                                                    "arial, helvetica, sans-serif",
-                                            }}
-                                        >
-                                            <br />
-                                        </span>
-                                    </li>
-                                </ol>
-                                <pre
-                                    id='tw-target-text'
-                                    className='tw-data-text tw-text-large tw-ta'
-                                    dir='ltr'
-                                    data-placeholder='Bản dịch'
-                                />
+                            <div
+                                className='content-body'
+                                dangerouslySetInnerHTML={{
+                                    __html: post.data[0].body,
+                                }}
+                            />
+
+                            <div
+                                style={{
+                                    textAlign: "right",
+                                    fontStyle: "italic",
+                                }}
+                            >
+                                <span>Author: {post.data[0].author}</span>
                             </div>
                         </div>
                     </div>
