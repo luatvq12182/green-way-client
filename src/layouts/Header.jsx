@@ -1,8 +1,13 @@
 import React from "react";
-import Navigation from "./Navigation";
 import { Link } from "react-router-dom";
+import Navigation from "./Navigation";
+import useLang from "@/hooks/useLang";
 
 const Header = () => {
+    const { currentLang, onChangeLang } = useLang();
+
+    console.log({ currentLang, onChangeLang });
+
     return (
         <header>
             <div
@@ -27,21 +32,29 @@ const Header = () => {
                             <Navigation />
 
                             <ul className='flex gap-5 items-center'>
-                                <li>
-                                    <a href='/lang/vi'>
+                                <li
+                                    onClick={() => {
+                                        onChangeLang("vi");
+                                    }}
+                                >
+                                    <span style={{ cursor: "pointer" }}>
                                         <img
                                             className='w-9 h-[24px] hover:opacity-50'
-                                            src='/images/vietnam.svg'
+                                            src='/vietnam.svg'
                                         />
-                                    </a>
+                                    </span>
                                 </li>
-                                <li>
-                                    <a href='/lang/en'>
+                                <li
+                                    onClick={() => {
+                                        onChangeLang("en");
+                                    }}
+                                >
+                                    <span style={{ cursor: "pointer" }}>
                                         <img
                                             className='w-9 h-[24px] hover:opacity-50'
-                                            src='/images/kingdom.svg'
+                                            src='/kingdom.svg'
                                         />
-                                    </a>
+                                    </span>
                                 </li>
                             </ul>
                         </div>
